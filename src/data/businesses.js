@@ -9,6 +9,9 @@ export const businesses = [
     category: "Restaurant",
     address: "Zampeliou 49, Chania",
     coords: [35.5156, 24.0175],
+    phone: "+30 28210 96080", // displayed as a clickable tel: link
+    website: "https://tamamchania.gr",
+    hours: "Daily 12:00–00:30",
   },
   {
     id: 2,
@@ -16,6 +19,9 @@ export const businesses = [
     category: "Cafe",
     address: "Apokoronou 24, Chania",
     coords: [35.5142, 24.0231],
+    phone: "+30 28210 96080", // displayed as a clickable tel: link
+    website: "https://tamamchania.gr",
+    hours: "Daily 12:00–00:30",
   },
   {
     id: 3,
@@ -23,6 +29,9 @@ export const businesses = [
     category: "Shop",
     address: "Dimokratias 5, Chania",
     coords: [35.5127, 24.0203],
+    phone: "+30 28210 96080", // displayed as a clickable tel: link
+    website: "https://tamamchania.gr",
+    hours: "Daily 12:00–00:30",
   },
   {
     id: 4,
@@ -30,5 +39,8 @@ export const businesses = [
     category: "Cafe",
     address: "Venizelos Graves, Chania",
     coords: [35.5063, 24.0089],
+    phone: "+30 28210 96080", // displayed as a clickable tel: link
+    website: "https://tamamchania.gr",
+    hours: "Daily 12:00–00:30",
   },
 ];

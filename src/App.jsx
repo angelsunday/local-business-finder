@@ -3,6 +3,7 @@ import "./utils/fixLeafletIcons"; //side-effect import - fixes broken marker ico
 import { businesses } from "./data/businesses";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "./App.css";
+import BusinessDetail from "./components/BusinessDetail";
 
 // Center the map on Chania, Crete [latitude, longitude]
 const CHANIA_CENTER = [35.5138, 24.018];
@@ -131,6 +132,12 @@ function App() {
             ))}
           </MapContainer>
         </section>
+
+        {/* Detail panel - only renders when a business is selected */}
+        <BusinessDetail
+          business={activeBusiness}
+          onClose={() => setActiveBusiness(null)}
+        />
       </main>
     </div>
   );

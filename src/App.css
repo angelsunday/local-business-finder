@@ -109,3 +109,44 @@
   color: white;
   border-color: #2c3e50;
 }
+
+/*Detail panel on the right - only visible when a business is selected*/
+.business-detail {
+  width: 300px;
+  padding: 1.5rem;
+  border-left: 1px solid #ddd;
+  overflow-y: auto;
+  position: relative;
+  background: #2c3e50;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  color: #666;
+}
+
+.business-detail h2 {
+  margin-bottom: 0.25rem;
+  paddin-right: 1.5rem; /* keeps the title clear of the close button*/
+}
+
+/* dt = label, dd = value in the definition list */
+.business-detail dt {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #666;
+  margin-top: 1rem;
+}
+
+.business-detail dd {
+  margin-top: 0.2rem;
+  font-size: 0.95rem;
+  word-break: break-word; /*Stops long URLs overflowing the panel*/
+}
