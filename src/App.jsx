@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./utils/fixLeafletIcons"; //side-effect import - fixes broken marker icons
 import { businesses } from "./data/businesses";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
@@ -13,11 +13,16 @@ const CHANIA_CENTER = [35.5138, 24.018];
 function MapController({ center }) {
   const map = useMap();
 
-  // Only move if a business has actually been selected
-  if (center) {
-    map.flyTo(center, 16); // 16 = zoom level, closer than the deafault 14.
-  }
-  return null; //renders nothing - it purely exeists for the side effect
+  useEffect(() => {
+    if (center) {
+      map.flyTo(center, 16); //16 = zoom level, closer than the default 14.
+    }
+    // Dependency array: re-run only if center or map changes.
+    // center is an array, so we pass its values individually -
+    // otherwise React sees a "new" array every render and re-runs endlessly.
+  }, [center?.[0], center?.[1], map]);
+
+  return null; //renders nothing - it exists purely for the side effect
 }
 
 function App() {
