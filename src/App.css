@@ -47,3 +47,9 @@
   flex: 1;
   background: #f0f0f0;
 }
+
+/* Leaflet requires the map element to have a real height, not just "auto" */
+.map {
+  height: 100%;
+  width: 100%;
+}

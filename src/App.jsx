@@ -1,4 +1,8 @@
+import { MapContainer, TileLayer } from "react-leaflet";
 import "./App.css";
+
+// Center the map on Chania, Crete [latitude, longitude]
+const CHANIA_CENTER = [35.5138, 24.018];
 
 function App() {
   return (
@@ -17,7 +21,15 @@ function App() {
         </section>
 
         <section className="map-container">
-          <p>Map will go here</p>
+          {/* center= where the map opens, zoom = how close in (higher = closer)*/}
+          <MapContainer center={CHANIA_CENTER} zoom={14} className="map">
+            {/* TileLayer = the actual map images. This one is free OpenStreetMap */}
+            {/* attribution is required by OSM's licence - dont remove it!*/}
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+          </MapContainer>
         </section>
       </main>
     </div>
