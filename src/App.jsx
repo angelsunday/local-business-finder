@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./utils/fixLeafletIcons"; //side-effect import - fixes broken marker icons
 import { businesses } from "./data/businesses";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -7,6 +8,21 @@ import "./App.css";
 const CHANIA_CENTER = [35.5138, 24.018];
 
 function App() {
+  //Holds whatever the user has typed into the search box.
+  const [searchTerm, setsearchTerm] = useState("");
+
+  //Filter the businesses down to ones mathcing the search term.
+  // toLowerCase() on both sides makes the search case-insensitive.
+  // We check name, category and address so any of them can match
+
+  const filterBusinesses = businesses.filter((business) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      business.name.toLowerCase().includes(term) ||
+      business.category.toLowerCase().includes(term) ||
+      business.address.toLowerCase().includes(term)
+    );
+  });
   return (
     <div className="app">
       <header className="app-header">
@@ -14,7 +30,12 @@ function App() {
       </header>
 
       <div className="search-bar">
-        <input type="text" placeholder="Search businesses..." />
+        <input
+          type="text"
+          placeholder="Search businesses..."
+          value={searchTerm}
+          onChange={(e) => setsearchTerm(e.target.value)} // update state on every keystroke
+        />
       </div>
 
       <main className="app-main">
@@ -22,7 +43,7 @@ function App() {
           {/* Loop over each business and render a card. */}
           {/* key is required by React so it can track list items efficiently */}
 
-          {businesses.map((business) => (
+          {filterBusinesses.map((business) => (
             <article key={business.id} className="business-card">
               <h2>{business.name}</h2>
               <p className="category">{business.category}</p>
@@ -41,7 +62,7 @@ function App() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             {/* One marker per business, potitioned by its coords */}
-            {businesses.map((business) => (
+            {filterBusinesses.map((business) => (
               <Marker key={business.id} position={business.coords}>
                 {/* Popup opens when the marker is clicked */}
                 <Popup>
