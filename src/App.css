@@ -84,3 +84,28 @@
   color: #444;
   margin-top: 0.25rem;
 }
+
+/* Row of category filter buttons under the search bar */
+.category-filters {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 1rem 1rem;
+  flex-wrap: wrap;
+}
+
+.category-filters button {
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: rgb(44, 43, 43);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/*Highlighted state for the selected category*/
+.category-filters button.active {
+  background: #2c3e50;
+  color: white;
+  border-color: #2c3e50;
+}

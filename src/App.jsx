@@ -9,7 +9,14 @@ const CHANIA_CENTER = [35.5138, 24.018];
 
 function App() {
   //Holds whatever the user has typed into the search box.
-  const [searchTerm, setsearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  // Which category is currently selected. 'All' means no category filter.
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // Build the button list from the data itself, so adding a new category
+  // to businesses.js automatically add a button - no manual updating.
+  // Set removes duplicates; spreading it back into an array lets up map over it.
+  const categories = ["All", ...new Set(businesses.map((b) => b.category))];
 
   //Filter the businesses down to ones mathcing the search term.
   // toLowerCase() on both sides makes the search case-insensitive.
@@ -17,11 +24,18 @@ function App() {
 
   const filterBusinesses = businesses.filter((business) => {
     const term = searchTerm.toLowerCase();
-    return (
+    //Does it match what was typed?
+    const matchesSearch =
       business.name.toLowerCase().includes(term) ||
       business.category.toLowerCase().includes(term) ||
-      business.address.toLowerCase().includes(term)
-    );
+      business.address.toLowerCase().includes(term);
+
+    //Does it match the selected category? 'All' always passes.
+    const matchesCategory =
+      selectedCategory === "All" || business.category === selectedCategory;
+
+    //must satisfy both filiters to show up
+    return matchesSearch && matchesCategory;
   });
   return (
     <div className="app">
@@ -34,8 +48,21 @@ function App() {
           type="text"
           placeholder="Search businesses..."
           value={searchTerm}
-          onChange={(e) => setsearchTerm(e.target.value)} // update state on every keystroke
+          onChange={(e) => setSearchTerm(e.target.value)} // update state on every keystroke
         />
+      </div>
+
+      <div className="category-filters">
+        {categories.map((category) => (
+          <button
+            key={category}
+            // 'active' class highlights the currently selected button.
+            className={selectedCategory === category ? "active" : ""}
+            onClick={() => setSelectedCategory(category)}
+          >
+            {category}
+          </button>
+        ))}
       </div>
 
       <main className="app-main">
