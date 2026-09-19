@@ -1,17 +1,33 @@
 import { useState } from "react";
 import "./utils/fixLeafletIcons"; //side-effect import - fixes broken marker icons
 import { businesses } from "./data/businesses";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "./App.css";
 
 // Center the map on Chania, Crete [latitude, longitude]
 const CHANIA_CENTER = [35.5138, 24.018];
+
+//Helper component that must live inside <MapContainer> to use the useMap hook.
+// Whenever the 'center' changes, it smoothly moves the map to that position.
+
+function MapController({ center }) {
+  const map = useMap();
+
+  // Only move if a business has actually been selected
+  if (center) {
+    map.flyTo(center, 16); // 16 = zoom level, closer than the deafault 14.
+  }
+  return null; //renders nothing - it purely exeists for the side effect
+}
 
 function App() {
   //Holds whatever the user has typed into the search box.
   const [searchTerm, setSearchTerm] = useState("");
   // Which category is currently selected. 'All' means no category filter.
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  //The business the user last clicked - used to pan the map
+  const [activeBusiness, setActiveBusiness] = useState(null);
 
   // Build the button list from the data itself, so adding a new category
   // to businesses.js automatically add a button - no manual updating.
@@ -71,7 +87,12 @@ function App() {
           {/* key is required by React so it can track list items efficiently */}
 
           {filterBusinesses.map((business) => (
-            <article key={business.id} className="business-card">
+            <article
+              key={business.id}
+              className="business-card"
+              onClick={() => setActiveBusiness(business)} //when clicked, set this business as the active one
+            >
+              {/* Display the business info */}
               <h2>{business.name}</h2>
               <p className="category">{business.category}</p>
               <p className="adreess">{business.address}</p>
@@ -88,6 +109,8 @@ function App() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
+
+            <MapController center={activeBusiness?.coords} />
             {/* One marker per business, potitioned by its coords */}
             {filterBusinesses.map((business) => (
               <Marker key={business.id} position={business.coords}>
