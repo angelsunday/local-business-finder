@@ -1,5 +1,6 @@
+import "./utils/fixLeafletIcons"; //side-effect import - fixes broken marker icons
 import { businesses } from "./data/businesses";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "./App.css";
 
 // Center the map on Chania, Crete [latitude, longitude]
@@ -39,6 +40,19 @@ function App() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
+            {/* One marker per business, potitioned by its coords */}
+            {businesses.map((business) => (
+              <Marker key={business.id} position={business.coords}>
+                {/* Popup opens when the marker is clicked */}
+                <Popup>
+                  <strong>{business.name}</strong>
+                  <br />
+                  {business.category}
+                  <br />
+                  {business.address}
+                </Popup>
+              </Marker>
+            ))}
           </MapContainer>
         </section>
       </main>
