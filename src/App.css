@@ -53,3 +53,34 @@
   height: 100%;
   width: 100%;
 }
+
+/* Individual business card in the left-hand list*/
+.business-card {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+}
+
+.business-card:hover {
+  background: #363131;
+}
+
+.business-card h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+/*Small grey label showing the business type*/
+.business-card .category {
+  font-size: 0.85rem;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.business-card .address {
+  font-size: 0.9rem;
+  color: #444;
+  margin-top: 0.25rem;
+}

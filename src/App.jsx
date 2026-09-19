@@ -1,3 +1,4 @@
+import { businesses } from "./data/businesses";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "./App.css";
 
@@ -17,7 +18,16 @@ function App() {
 
       <main className="app-main">
         <section className="business-list">
-          <p>Business list will go here</p>
+          {/* Loop over each business and render a card. */}
+          {/* key is required by React so it can track list items efficiently */}
+
+          {businesses.map((business) => (
+            <article key={business.id} className="business-card">
+              <h2>{business.name}</h2>
+              <p className="category">{business.category}</p>
+              <p className="adreess">{business.address}</p>
+            </article>
+          ))}
         </section>
 
         <section className="map-container">
