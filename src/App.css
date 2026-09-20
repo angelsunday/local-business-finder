@@ -189,3 +189,11 @@
 .list-message.error {
   color: #c0392b;
 }
+
+/* Shown when OSM has no extra info beyond the address*/
+.no-details {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #888;
+  font-style: italic;
+}

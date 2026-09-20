@@ -17,23 +17,47 @@ function BusinessDetail({ business, onClose }) {
         <dt>Address</dt>
         <dd>{business.address}</dd>
 
-        <dt>Hours</dt>
-        <dd>{business.hours}</dd>
+        {/* Each field only renders if OSM actually has the data for it */}
+        {business.hours && (
+          <>
+            <dt>Hours</dt>
+            <dd>{business.hours}</dd>
+          </>
+        )}
 
-        <dt>Phone</dt>
-        {/* tel: link lets mobile users tap to call */}
-        <dd>
-          <a href={`tel:${business.phone}`}>{business.phone}</a>
-        </dd>
+        {business.phone && (
+          <>
+            <dt>Phone</dt>
+            {/* tel: link lets mobile users tap to call */}
+            <dd>
+              <a href={`tel:${business.phone}`}>{business.phone}</a>
+            </dd>
+          </>
+        )}
 
-        <dt>Website</dt>
-        {/* noopener noreferrer is a security best practice for target="_blank" links */}
-        <dd>
-          <a href={business.website} target="_blank" rel="noopener noreferrer">
-            {business.website}
-          </a>
-        </dd>
+        {business.website && (
+          <>
+            <dt>Website</dt>
+            {/* noopener noreferrer is a security best practice for target="_blank" */}
+            <dd>
+              <a
+                href={business.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {business.website}
+              </a>
+            </dd>
+          </>
+        )}
       </dl>
+
+      {/* Let the user know why the panel looks sparse */}
+      {!business.hours && !business.phone && !business.website && (
+        <p className="no-details">
+          No further details listed in OpenStreetMap.
+        </p>
+      )}
     </aside>
   );
 }
