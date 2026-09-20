@@ -134,7 +134,7 @@
 
 .business-detail h2 {
   margin-bottom: 0.25rem;
-  paddin-right: 1.5rem; /* keeps the title clear of the close button*/
+  padding-right: 1.5rem; /* keeps the title clear of the close button*/
 }
 
 /* dt = label, dd = value in the definition list */
@@ -170,4 +170,11 @@
   margin-top: 0.5rem;
   color: #c0392b;
   font-size: 0.85rem;
+}
+
+.business-card .distance {
+  font-size: 0.85rem;
+  color: #1a73e8;
+  font-weight: 600;
+  margin-top: 0.35rem;
 }
