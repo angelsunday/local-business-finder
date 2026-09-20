@@ -178,3 +178,14 @@
   font-weight: 600;
   margin-top: 0.35rem;
 }
+
+/* Status messages in the list panel - loading, errors, enpty results */
+.list-message {
+  padding: 1rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.list-message.error {
+  color: #c0392b;
+}

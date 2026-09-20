@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./utils/fixLeafletIcons"; //side-effect import - fixes broken marker icons
-import { businesses } from "./data/businesses";
+import { fetchChaniaBusinesses } from "./api/overpass";
 import {
   MapContainer,
   TileLayer,
@@ -48,6 +48,30 @@ function App() {
 
   //Error message if location fails or is denied - shown to the user
   const [locationError, setLocationError] = useState(null);
+
+  // Businesses fetched from Overpass. Starts empty, fills after the request
+  const [businesses, setBusinesses] = useState([]);
+
+  // True while the request is in flight - used to show a loading message
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Holds an error message if the fetch fails
+  const [fetchError, setFetchError] = useState(null);
+
+  // Fetch Businesses once when the component first mounts.
+  //The empty dependency array [] means "run this only on mount"
+  useEffect(() => {
+    fetchChaniaBusinesses()
+      .then((data) => {
+        setBusinesses(data);
+        setFetchError(null);
+      })
+      .catch((error) => {
+        setFetchError("Could not load businesses: " + error.message);
+      })
+      //Finaly runs wheter the request succeeded of failed
+      .finally(() => setIsLoading(false));
+  }, []);
 
   // Build the button list from the data itself, so adding a new category
   // to businesses.js automatically add a button - no manual updating.
@@ -148,8 +172,12 @@ function App() {
 
       <main className="app-main">
         <section className="business-list">
-          {/* Loop over each business and render a card. */}
-          {/* key is required by React so it can track list items efficiently */}
+          {isLoading && <p className="list-message">Loading businesses...</p>}
+          {fetchError && <p className="list-message error">{fetchError}</p>}
+          {/* Only show "no results" once loading has finishe */}
+          {!isLoading && !fetchError && filterBusinesses.length === 0 && (
+            <p className="list-message">No businesses match your search</p>
+          )}
 
           {filterBusinesses.map((business) => (
             <article
