@@ -197,3 +197,53 @@
   color: #888;
   font-style: italic;
 }
+/* ---------- Mobile layout ---------- */
+/* 768px is a common tablet/phone breakpoint */
+@media (media-width: 768px) {
+  /* Stack the panels vertically instead of side by side */
+  .app-main {
+    flex-direction: column;
+  }
+
+  /* List takes full width and a fixed share of the height*/
+  .business-list {
+    width: 100%;
+    height: 50%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* map fills the remaining space below the list */
+  .map-container {
+    height: 50%;
+    flex: none;
+  }
+
+  /* detail panel slides over everything instead of taking a column. position: fixed pins it to the viewport, ignoring the flex layout. */
+
+  .business-detail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000; /* above Leaflet's own layers, which go up to ~700 */
+    border-left: none;
+  }
+
+  /* Category buttons wrap and scroll rather overflowing*/
+  .category-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.75rem;
+  }
+
+  /* Stop the buttons shrinking to unreadable width */
+  .category-filters button {
+    flex-shrink: 0;
+  }
+  .app-header h1 {
+    font-size: 1.25rem;
+  }
+}
