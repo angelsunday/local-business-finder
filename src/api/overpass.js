@@ -1,7 +1,7 @@
-// Overpass API — free, public endpoint for querying OpenStreetMap data.
-// No API key needed, but it's a shared community resource: keep queries
-// narrow and don't hammer it with requests.
-const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
+// Public Overpass instances get busy — swap the URL if one times out.
+// Alternatives: https://overpass-api.de/api/interpreter
+//               https://overpass.kumi.systems/api/interpreter
+const OVERPASS_URL = "https://overpass.kumi.systems/api/interpreter";
 
 // Bounding box for central Chania: [south, west, north, east]
 // Overpass wants these four corners to limit the search area.
